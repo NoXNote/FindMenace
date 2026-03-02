@@ -3,8 +3,11 @@ extends GridContainer
 @onready var button_template := $"../ticButton"
 @onready var who_turn_sign := $"../whoTurn"
 @onready var id_output = $"../whatID"
+@onready var previous_reset = $"../say_previous"
 
-@onready var menace_core = $"../Menace Core"
+@onready var has_won = $"../hasWon"
+
+@onready var menace_core = $"../whatID"
 
 var board_array: Array[Button]
 
@@ -18,9 +21,6 @@ class Move:
 var move_history: Array[Move]
 var undo_history: Array[Move]
 
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	for i in 9:
@@ -39,12 +39,6 @@ func get_board() -> Array[int]:
 		int_array.push_back(but.state)
 	return int_array
 	
-func update_id():
-	var id = menace_core.get_board_id(get_board())
-	id_output.text = "ID is: " + id
-	
-
-
 func _on_tic_button_tic_pressed(button_index: int) -> void:
 	undo_history.clear()
 	move_history.push_back(Move.new(button_index, board_array[button_index].state))
@@ -54,8 +48,6 @@ func _on_tic_button_tic_pressed(button_index: int) -> void:
 		board_array[button_index].state = 1
 	changeTurn()
 	
-
-
 func _on_undo_pressed() -> void:
 	if move_history.size() > 0:
 		undo_history.push_back(Move.new(move_history[-1].position, board_array[move_history[-1].position].state)) 
@@ -66,7 +58,6 @@ func _on_undo_pressed() -> void:
 		print(undo_history[-1].previous_state)
 		changeTurn()
 
-
 func _on_redo_pressed() -> void:
 	if undo_history.size() > 0:
 		move_history.push_back(Move.new(undo_history[-1].position, board_array[undo_history[-1].position].state)) 
@@ -75,9 +66,23 @@ func _on_redo_pressed() -> void:
 		undo_history.pop_back()
 		changeTurn()
 
-
 func changeTurn():
 	Globals.xTurn = !Globals.xTurn
 	if Globals.xTurn: who_turn_sign.texture = preload("res://assets/xturn.png")
 	else: who_turn_sign.texture = preload("res://assets/oturn.png")
-	update_id()
+	has_won.check_winner(get_board())
+	menace_core.get_board_id(get_board())
+
+func _on_reset_pressed() -> void:
+	Globals.xTurn = true
+	who_turn_sign.texture = preload("res://assets/xturn.png")
+	var reset_text = ""
+	for i in 9:
+		reset_text += str(board_array[i].state)
+		if i % 3 == 2: reset_text += "\n"
+		board_array[i].state = 0
+	previous_reset.text = reset_text
+	undo_history.clear()
+	move_history.clear()
+	has_won.check_winner(get_board())
+	menace_core.get_board_id(get_board())
