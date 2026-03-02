@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://co3r8rq4ygsbl"]
+
+[ext_resource type="Script" uid="uid://cehns030woekr" path="res://tic_button.gd" id="1_elwfv"]
+[ext_resource type="Texture2D" uid="uid://b6rpvpcc3bkvr" path="res://assets/dash.png" id="1_tsv1p"]
+
+[node name="ticButton" type="Button" unique_id=1128936254]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+icon = ExtResource("1_tsv1p")
+script = ExtResource("1_elwfv")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
