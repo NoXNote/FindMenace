@@ -2,6 +2,10 @@ extends GridContainer
 
 @onready var button_template := $"../ticButton"
 @onready var who_turn_sign := $"../whoTurn"
+@onready var id_output = $"../whatID"
+
+@onready var menace_core = $"../Menace Core"
+
 var board_array: Array[Button]
 
 class Move:
@@ -24,48 +28,56 @@ func _ready() -> void:
 		temp_button.tic_pressed.connect(_on_tic_button_tic_pressed)
 		temp_button.visible = true
 		temp_button.button_index = i
+		temp_button.state = 0
 		board_array.append(temp_button)
 		add_child(temp_button)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func get_board() -> Array[int]:
+	var int_array: Array[int]
+	for but in board_array:
+		int_array.push_back(but.state)
+	return int_array
+	
+func update_id():
+	var id = menace_core.get_board_id(get_board())
+	id_output.text = "ID is: " + id
+	
 
 
 func _on_tic_button_tic_pressed(button_index: int) -> void:
 	undo_history.clear()
 	move_history.push_back(Move.new(button_index, board_array[button_index].state))
-	changeTurn()
 	if Globals.xTurn:
-		board_array[button_index].state = 1
-	else:
 		board_array[button_index].state = 2
-	print(button_index)
+	else:
+		board_array[button_index].state = 1
+	changeTurn()
 	
 
 
 func _on_undo_pressed() -> void:
 	if move_history.size() > 0:
-		changeTurn()
 		undo_history.push_back(Move.new(move_history[-1].position, board_array[move_history[-1].position].state)) 
 		board_array[move_history[-1].position].state = move_history[-1].previous_state
 		
 		move_history.pop_back()
 		print(undo_history[-1].position)
 		print(undo_history[-1].previous_state)
+		changeTurn()
 
 
 func _on_redo_pressed() -> void:
 	if undo_history.size() > 0:
-		changeTurn()
 		move_history.push_back(Move.new(undo_history[-1].position, board_array[undo_history[-1].position].state)) 
 		board_array[undo_history[-1].position].state = undo_history[-1].previous_state
 		
 		undo_history.pop_back()
+		changeTurn()
 
 
 func changeTurn():
 	Globals.xTurn = !Globals.xTurn
 	if Globals.xTurn: who_turn_sign.texture = preload("res://assets/xturn.png")
 	else: who_turn_sign.texture = preload("res://assets/oturn.png")
+	update_id()
