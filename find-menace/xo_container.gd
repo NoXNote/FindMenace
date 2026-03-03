@@ -1,13 +1,17 @@
 extends GridContainer
 
-@onready var button_template := $"../ticButton"
-@onready var who_turn_sign := $"../whoTurn"
-@onready var id_output = $"../whatID"
-@onready var previous_reset = $"../say_previous"
+@export var button_template: Node
+@export var who_turn_sign : Node
+@export var id_output : Node
+@export var previous_reset : Node
 
-@onready var has_won = $"../hasWon"
+@export var has_won : Node
 
-@onready var menace_core = $"../whatID"
+@export var menace_core: Node
+
+@export var place_sound : Node
+@export var reset_sound : Node
+@export var unredo_sound : Node
 
 var board_array: Array[Button]
 
@@ -50,6 +54,7 @@ func _on_tic_button_tic_pressed(button_index: int) -> void:
 	
 func _on_undo_pressed() -> void:
 	if move_history.size() > 0:
+		unredo_sound.play()
 		undo_history.push_back(Move.new(move_history[-1].position, board_array[move_history[-1].position].state)) 
 		board_array[move_history[-1].position].state = move_history[-1].previous_state
 		
@@ -60,6 +65,7 @@ func _on_undo_pressed() -> void:
 
 func _on_redo_pressed() -> void:
 	if undo_history.size() > 0:
+		unredo_sound.play()
 		move_history.push_back(Move.new(undo_history[-1].position, board_array[undo_history[-1].position].state)) 
 		board_array[undo_history[-1].position].state = undo_history[-1].previous_state
 		
@@ -67,6 +73,7 @@ func _on_redo_pressed() -> void:
 		changeTurn()
 
 func changeTurn():
+	place_sound.play()
 	Globals.xTurn = !Globals.xTurn
 	if Globals.xTurn: who_turn_sign.texture = preload("res://assets/xturn.png")
 	else: who_turn_sign.texture = preload("res://assets/oturn.png")
@@ -74,6 +81,7 @@ func changeTurn():
 	menace_core.get_board_id(get_board())
 
 func _on_reset_pressed() -> void:
+	reset_sound.play()
 	Globals.xTurn = true
 	who_turn_sign.texture = preload("res://assets/xturn.png")
 	var reset_text = ""

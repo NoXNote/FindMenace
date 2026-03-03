@@ -3,14 +3,28 @@
 [ext_resource type="Script" uid="uid://cehns030woekr" path="res://tic_button.gd" id="1_elwfv"]
 [ext_resource type="Texture2D" uid="uid://b6rpvpcc3bkvr" path="res://assets/dash.png" id="1_tsv1p"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tsv1p"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.2901961)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="ticButton" type="Button" unique_id=1128936254]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_tsv1p")
 toggle_mode = true
 icon = ExtResource("1_tsv1p")
+flat = true
 script = ExtResource("1_elwfv")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

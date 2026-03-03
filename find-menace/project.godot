@@ -21,8 +21,8 @@ Globals="*uid://dhsrg8hw4fh00"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
+window/size/viewport_width=600
+window/size/viewport_height=800
 
 [physics]
 

@@ -1,15 +1,26 @@
 [gd_scene format=3 uid="uid://cp2i6otpo4lhp"]
 
-[ext_resource type="Texture2D" uid="uid://d33jm5mo4fte7" path="res://assets/tiger.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://beu2oho3jykga" path="res://assets/tile.png" id="1_getpj"]
+[ext_resource type="Texture2D" uid="uid://553l4ao0bjfh" path="res://assets/Colliderfest_Undated-Logo-02.png" id="2_getpj"]
 [ext_resource type="Script" uid="uid://dhwn5nh7fjd4c" path="res://xo_container.gd" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cokj0l1apaseo" path="res://assets/smallcircles.png" id="3_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://co3r8rq4ygsbl" path="res://tic_button.tscn" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://c4n2uqrj1ywv2" path="res://assets/xturn.png" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://bdyeq477avmc4" path="res://sounds/creatorshome-digital-click-357350.mp3" id="4_yaehf"]
+[ext_resource type="AudioStream" uid="uid://b2xt3o726ect5" path="res://sounds/freesound_community-086223_ani-87960.mp3" id="5_074og"]
 [ext_resource type="Script" uid="uid://dhsrg8hw4fh00" path="res://globals.gd" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://cfhc7s5nusse4" path="res://assets/undo.png" id="6_272bh"]
+[ext_resource type="AudioStream" uid="uid://dnoh5h2vs1ihy" path="res://sounds/freesound_community-tear-paper-103161.mp3" id="6_cegan"]
 [ext_resource type="Texture2D" uid="uid://c7a08vwv4cajt" path="res://assets/redo.png" id="7_5vw27"]
 [ext_resource type="Script" uid="uid://cu0ofo8opjblk" path="res://what_id.gd" id="9_4c57u"]
 [ext_resource type="Texture2D" uid="uid://crd570vs6lyeh" path="res://assets/reset.png" id="9_kek77"]
 [ext_resource type="Script" uid="uid://dd73xfgldbs5s" path="res://has_won.gd" id="10_4c57u"]
+[ext_resource type="Texture2D" uid="uid://c7r0sf6ff1r7f" path="res://assets/stripe.png" id="12_dg77c"]
+[ext_resource type="Texture2D" uid="uid://b7tbt6upxwqg4" path="res://assets/vert.png" id="13_vivmo"]
+[ext_resource type="Texture2D" uid="uid://b8a5ysh6flncu" path="res://assets/diag_a.png" id="14_2cqfq"]
+[ext_resource type="AudioStream" uid="uid://da04lo3tgdfdv" path="res://sounds/universfield-error-08-206492.mp3" id="15_82xsv"]
+[ext_resource type="Texture2D" uid="uid://8bqx5crosanu" path="res://assets/diag_b.png" id="15_yaehf"]
+[ext_resource type="AudioStream" uid="uid://bryi1d68qh12q" path="res://sounds/bithuh-pop-win-casino-winning-398059.mp3" id="16_getpj"]
 
 [node name="Main" type="Control" unique_id=1011973169]
 layout_mode = 3
@@ -18,40 +29,132 @@ anchors_preset = 0
 [node name="bg" type="TextureRect" parent="." unique_id=969137102]
 texture_repeat = 2
 layout_mode = 1
-offset_right = 800.0
-offset_bottom = 600.0
-texture = ExtResource("1_ig7tw")
+offset_right = 600.0
+offset_bottom = 800.0
+texture = ExtResource("1_getpj")
 stretch_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="xoContainer" type="GridContainer" parent="." unique_id=84852326]
+[node name="branding" type="TextureRect" parent="." unique_id=584158658]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 44.0
+offset_right = 589.78735
+offset_bottom = 245.0
+texture = ExtResource("2_getpj")
+expand_mode = 1
+
+[node name="play" type="Control" parent="." unique_id=2073532510]
+anchors_preset = 0
+offset_left = 199.0
+offset_top = 173.0
+offset_right = 199.0
+offset_bottom = 173.0
+
+[node name="beads" type="TextureRect" parent="play" unique_id=896645314]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 201.0
+offset_right = 397.0
+offset_bottom = 597.0
+texture = ExtResource("3_2cqfq")
+metadata/_edit_lock_ = true
+
+[node name="xoContainer" type="GridContainer" parent="play" unique_id=84852326 node_paths=PackedStringArray("button_template", "who_turn_sign", "id_output", "previous_reset", "has_won", "menace_core", "place_sound", "reset_sound", "unredo_sound")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 34.0
-offset_top = 507.0
-offset_right = 84.0
-offset_bottom = 567.0
+offset_left = 36.0
+offset_top = 503.0
+offset_right = 86.0
+offset_bottom = 563.0
 grow_vertical = 0
 columns = 3
 script = ExtResource("2_h2yge")
+button_template = NodePath("../ticButton")
+who_turn_sign = NodePath("../../whoTurn")
+id_output = NodePath("../../whatID")
+previous_reset = NodePath("../../say_previous")
+has_won = NodePath("../../hasWon")
+menace_core = NodePath("../../whatID")
+place_sound = NodePath("tick_player")
+reset_sound = NodePath("reset_player")
+unredo_sound = NodePath("unredo_player")
 
-[node name="ticButton" parent="." unique_id=1128936254 instance=ExtResource("3_h2yge")]
+[node name="tick_player" type="AudioStreamPlayer" parent="play/xoContainer" unique_id=1388550129]
+stream = ExtResource("4_yaehf")
+volume_db = -15.392
+
+[node name="reset_player" type="AudioStreamPlayer" parent="play/xoContainer" unique_id=602990490]
+stream = ExtResource("5_074og")
+volume_db = -7.488
+
+[node name="unredo_player" type="AudioStreamPlayer" parent="play/xoContainer" unique_id=110508303]
+stream = ExtResource("6_cegan")
+volume_db = -9.568
+
+[node name="hzstripe" type="TextureRect" parent="play" unique_id=1493823419]
+visible = false
+layout_mode = 0
+offset_left = -179.0
+offset_top = 92.0
+offset_right = 221.0
+offset_bottom = 148.0
+texture = ExtResource("12_dg77c")
+
+[node name="vertstripe" type="TextureRect" parent="play" unique_id=61327663]
+visible = false
+layout_mode = 0
+offset_left = -139.0
+offset_top = 62.0
+offset_right = -94.0
+offset_bottom = 462.0
+texture = ExtResource("13_vivmo")
+
+[node name="diagastripe" type="TextureRect" parent="play" unique_id=1477133004]
+visible = false
+layout_mode = 0
+offset_left = 21.0
+offset_top = 218.0
+offset_right = 388.0
+offset_bottom = 590.0
+texture = ExtResource("14_2cqfq")
+
+[node name="diagbstripe" type="TextureRect" parent="play" unique_id=994023896]
+visible = false
+layout_mode = 0
+offset_left = 21.0
+offset_top = 218.0
+offset_right = 388.0
+offset_bottom = 590.0
+texture = ExtResource("15_yaehf")
+
+[node name="cover" type="Control" parent="play" unique_id=1621161355]
+visible = false
+anchors_preset = 0
+offset_left = 30.0
+offset_top = 218.0
+offset_right = 397.0
+offset_bottom = 597.0
+
+[node name="ticButton" parent="play" unique_id=1128936254 instance=ExtResource("3_h2yge")]
 visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = 108.0
+offset_bottom = 108.0
 grow_horizontal = 1
 grow_vertical = 1
 
 [node name="whoTurn" type="TextureRect" parent="." unique_id=1451908281]
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 9.0
+offset_top = -7.0
+offset_right = 265.0
+offset_bottom = 249.0
 texture = ExtResource("4_1bvp3")
 
 [node name="Globals" type="Node" parent="." unique_id=61737429]
@@ -59,51 +162,51 @@ script = ExtResource("5_lquwl")
 
 [node name="undo" type="Button" parent="." unique_id=1991763359]
 layout_mode = 0
-offset_left = 429.0
-offset_top = 22.0
-offset_right = 537.0
-offset_bottom = 130.0
+offset_left = 43.0
+offset_top = 401.0
+offset_right = 151.0
+offset_bottom = 509.0
 icon = ExtResource("6_272bh")
 
 [node name="redo" type="Button" parent="." unique_id=1548789737]
 layout_mode = 0
-offset_left = 547.0
-offset_top = 22.0
-offset_right = 655.0
-offset_bottom = 130.0
+offset_left = 43.0
+offset_top = 518.0
+offset_right = 151.0
+offset_bottom = 626.0
 icon = ExtResource("7_5vw27")
 
 [node name="whatID" type="Label" parent="." unique_id=1736431444]
 layout_mode = 0
-offset_left = 463.0
-offset_top = 501.0
-offset_right = 738.0
-offset_bottom = 555.0
+offset_left = 43.0
+offset_top = 258.0
+offset_right = 600.0
+offset_bottom = 409.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49411765)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 6
 theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 8
 theme_override_constants/shadow_outline_size = 9
-theme_override_font_sizes/font_size = 39
-text = "ID: Play a turn!"
+theme_override_font_sizes/font_size = 101
+text = "ID is: 1.0"
 script = ExtResource("9_4c57u")
 
 [node name="reset" type="Button" parent="." unique_id=1781486593]
 layout_mode = 0
-offset_left = 668.0
-offset_top = 24.0
-offset_right = 776.0
-offset_bottom = 132.0
+offset_left = 43.0
+offset_top = 640.0
+offset_right = 151.0
+offset_bottom = 748.0
 icon = ExtResource("9_kek77")
 
 [node name="previous" type="Label" parent="." unique_id=17287359]
 layout_direction = 3
 layout_mode = 0
-offset_left = -664.0
-offset_top = 138.0
-offset_right = -539.0
-offset_bottom = 236.0
+offset_left = 121.0
+offset_top = 258.0
+offset_right = 246.0
+offset_bottom = 356.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 3
@@ -116,10 +219,10 @@ Reset:"
 
 [node name="say_previous" type="Label" parent="." unique_id=1597247785]
 layout_mode = 0
-offset_left = 688.0
-offset_top = 134.0
-offset_right = 757.0
-offset_bottom = 232.0
+offset_left = -110.0
+offset_top = 258.0
+offset_right = -31.0
+offset_bottom = 356.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = -14
@@ -132,12 +235,12 @@ text = "0 is -
 1 is O
 2 is X"
 
-[node name="hasWon" type="Label" parent="." unique_id=187040710]
+[node name="hasWon" type="Label" parent="." unique_id=187040710 node_paths=PackedStringArray("hz_stripe", "vr_stripe", "diaga_stripe", "diagb_stripe", "player_sound", "menace_sound", "who_turn", "cover")]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 141.0
-offset_right = 230.0
-offset_bottom = 239.0
+offset_left = 43.0
+offset_top = 242.0
+offset_right = 253.0
+offset_bottom = 296.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 3
@@ -147,7 +250,23 @@ theme_override_constants/shadow_outline_size = 4
 theme_override_font_sizes/font_size = 30
 text = "No Winner Yet"
 script = ExtResource("10_4c57u")
+hz_stripe = NodePath("../play/hzstripe")
+vr_stripe = NodePath("../play/vertstripe")
+diaga_stripe = NodePath("../play/diagastripe")
+diagb_stripe = NodePath("../play/diagbstripe")
+player_sound = NodePath("win_player")
+menace_sound = NodePath("win_menace")
+who_turn = NodePath("../whoTurn")
+cover = NodePath("../play/cover")
 
-[connection signal="pressed" from="undo" to="xoContainer" method="_on_undo_pressed"]
-[connection signal="pressed" from="redo" to="xoContainer" method="_on_redo_pressed"]
-[connection signal="pressed" from="reset" to="xoContainer" method="_on_reset_pressed"]
+[node name="win_menace" type="AudioStreamPlayer" parent="hasWon" unique_id=1564277922]
+stream = ExtResource("15_82xsv")
+volume_db = -8.736
+
+[node name="win_player" type="AudioStreamPlayer" parent="hasWon" unique_id=36821425]
+stream = ExtResource("16_getpj")
+volume_db = -13.312
+
+[connection signal="pressed" from="undo" to="play/xoContainer" method="_on_undo_pressed"]
+[connection signal="pressed" from="redo" to="play/xoContainer" method="_on_redo_pressed"]
+[connection signal="pressed" from="reset" to="play/xoContainer" method="_on_reset_pressed"]
