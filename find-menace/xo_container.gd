@@ -82,8 +82,8 @@ func changeTurn():
 
 func _on_reset_pressed() -> void:
 	reset_sound.play()
-	Globals.xTurn = true
-	who_turn_sign.texture = preload("res://assets/xturn.png")
+	Globals.xTurn = false
+	who_turn_sign.texture = preload("res://assets/oturn.png")
 	var reset_text = ""
 	for i in 9:
 		reset_text += str(board_array[i].state)

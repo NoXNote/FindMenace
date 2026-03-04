@@ -1,3 +1,3 @@
 extends Node
 
-var xTurn := true
+var xTurn := false

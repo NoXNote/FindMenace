@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dhwn5nh7fjd4c" path="res://xo_container.gd" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cokj0l1apaseo" path="res://assets/smallcircles.png" id="3_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://co3r8rq4ygsbl" path="res://tic_button.tscn" id="3_h2yge"]
-[ext_resource type="Texture2D" uid="uid://c4n2uqrj1ywv2" path="res://assets/xturn.png" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://c4n2uqrj1ywv2" path="res://assets/oturn.png" id="4_1bvp3"]
 [ext_resource type="AudioStream" uid="uid://bdyeq477avmc4" path="res://sounds/creatorshome-digital-click-357350.mp3" id="4_yaehf"]
 [ext_resource type="AudioStream" uid="uid://b2xt3o726ect5" path="res://sounds/freesound_community-086223_ani-87960.mp3" id="5_074og"]
 [ext_resource type="Script" uid="uid://dhsrg8hw4fh00" path="res://globals.gd" id="5_lquwl"]

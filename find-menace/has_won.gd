@@ -32,12 +32,12 @@ func check_winner(board: Array) -> int:
 			print("won!")
 			if board[a] == 1: 
 				text = "O has Won!"
-				who_turn.texture = preload("res://assets/win.png")
-				player_sound.play()
-			elif board[a] == 2: 
-				text = "X has Won!"
 				who_turn.texture = preload("res://assets/lose.png")
 				menace_sound.play()
+			elif board[a] == 2: 
+				text = "X has Won!"
+				who_turn.texture = preload("res://assets/win.png")
+				player_sound.play()
 			
 			display_win(win_index)
 			return board[a]
